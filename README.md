@@ -2,8 +2,10 @@
 
 ## Getting Started
 
-- Get domain & psk key from Footprint
-- Learn about Python demo script to  download data
+- Get domain & psk key from Footprint.
+- Understanding the storage structure of data in the cloud.
+- Understanding relevant table schema.
+- Understanding Python demo script to  download data.
 
 
 ## How to access the daily data
@@ -20,6 +22,9 @@ Take the table **`sui_nft_transactions`** as an example, If you want to get the 
 | ----file.parquet
 | ----file.parquet
 
+.
+.
+.
 
 def download_daily_data(chain, table, date):
     download(chain, table, f"block_date={date}")
@@ -50,7 +55,67 @@ if __name__ == '__main__':
 ```
 
 ## How to update latest balance data
+#### Instructions
+In the folder address_latest_balance on R2, the files under `updated_date=YYYY-MM-DD` contain the list of wallet holdings where asset/nft transfers occurred yesterday. The update steps are as follows:
 
+1. create external table to load daily updated parquet file
+```sql
+CREATE EXTERNAL TABLE IF NOT EXISTS sui_address_nft_latest_balance_external (
+    amount DOUBLE,
+    block_number INT,
+    block_timestamp INT,
+    chain STRING,
+    collection_contract_address STRING,
+    nft_token_id STRING,
+    updated_at INT,
+    wallet_address STRING
+)
+STORED AS PARQUET
+LOCATION '{{hdfs_or_s3_path}}';
+
+------
+
+CREATE EXTERNAL TABLE IF NOT EXISTS sui_address_token_latest_balance_external (
+    amount DOUBLE,
+    block_number INT,
+    block_timestamp INT,
+    chain STRING,
+    token_address STRING,
+    value DOUBLE,
+    updated_at INT,
+    wallet_address STRING
+)
+STORED AS PARQUET
+LOCATION '{{hdfs_or_s3_path}}';
+```
+
+2. Assuming the original table to be updated is `sui_address_token_latest_balance_internal`, use a deletion statement to remove the data from the original table, ensuring to filter by `updated_at`.
+
+```sql
+delete from sui_address_token_latest_balance_internal
+where wallet_address in (
+    select distinct wallet_address from sui_address_token_latest_balance_external
+    where updated_at = {{updated_date}}
+)
+
+delete from sui_address_nft_latest_balance_internal
+where wallet_address in (
+    select distinct wallet_address from sui_address_nft_latest_balance_internal
+    where updated_at = {{updated_date}}
+)
+```
+
+3. Insert the new udpated data into the original table to complete the update.
+
+```sql
+insert into sui_address_token_latest_balance_internal
+select * from sui_address_token_latest_balance_external
+where updated_at = {{updated_date}}
+
+insert into sui_address_nft_latest_balance_internal
+select * from sui_address_nft_latest_balance_external
+where updated_at = {{updated_date}}
+```
 
 
 ## How to access the patch data
@@ -83,9 +148,28 @@ if __name__ == '__main__':
 
 ## How to merge table with patch data
 
-Take the table `**sui_token_tranfers**` as an example,  please prepare the following items:
+Take the table `sui_token_tranfers` as an example,  please prepare the following items:
 
-1. Prepare a table to store patch data, here we use `sui_token_tranfers_patch_table`.
+1. Create a table to store patch data, here we use `sui_token_tranfers_patch_table`.
+```sql
+CREATE EXTERNAL TABLE IF NOT EXISTS sui_token_tranfers_patch_table (
+    transaction_hash | STRING
+    block_number     | INT
+    block_hash       | STRING
+    block_timestamp  | INT
+    log_index        | INT
+    from_address     | STRING
+    to_address       | STRING
+    token_address    | STRING
+    token_symbol     | STRING
+    amount_raw       | decimal(38,0)
+    value            | STRING
+    total_gas_fee    | INT
+    status           | STRING
+)
+STORED AS PARQUET
+LOCATION '{{hdfs_or_s3_path}}';
+```
 2. Download the patch data via `download_patch_data` method and save it in `sui_token_tranfers_patch_table`.
 3. Merge the data through the design of the primary key in the table.
 

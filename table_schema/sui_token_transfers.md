@@ -1,4 +1,4 @@
->
+
 | column order | column name      | data type     | description                                                                                   | is_unique_key |
 | ------------ | ---------------- | ------------- | --------------------------------------------------------------------------------------------- | ------------- |
 | 1            | transaction_hash | varchar       | transaction_block_digest                                                                      | Y             |

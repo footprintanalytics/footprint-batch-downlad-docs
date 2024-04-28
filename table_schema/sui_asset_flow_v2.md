@@ -1,4 +1,4 @@
->
+
 | column order | column name      | data type | description                                                                                  | is_unique_key |
 | ------------ | ---------------- | --------- | -------------------------------------------------------------------------------------------- | ------------- |
 | 1            | address          | varchar   | The subject address of the recorded data.                                                    | Y             |

@@ -1,5 +1,5 @@
 > 	This table contains information about each wallet's holdings, such as the balance of each token.
->
+
 | column order | column name    | data type | description                                                                                   | is_unique_key |
 | ------------ | -------------- | --------- | --------------------------------------------------------------------------------------------- | ------------- |
 | 1            | amount         | double    | The number of tokens                                                                          |               |

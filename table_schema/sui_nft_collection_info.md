@@ -1,5 +1,5 @@
 > This table contains fundamental project information of the NFT collection. Colleciton_contract_address are keys to join other tables.
->
+
 | column order | column name             | data type      | description                                                                              | is_unique_key |
 | ------------ | ----------------------- | -------------- | ---------------------------------------------------------------------------------------- | ------------- |
 | 1            | chain                   | varchar        | Blockchain name                                                                          | Y             |
