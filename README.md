@@ -3,9 +3,9 @@
 ## Getting Started
 
 - Get domain & psk key from Footprint.
-- Understanding the storage structure of data in the cloud.
-- Understanding relevant table schema.
-- Understanding Python demo script to  download data.
+- Understanding the storage structure of data in the cloud. (./docs/sui_file_structure.md)
+- Understanding relevant table schema. (./table_schema)
+- Understanding Python demo script to download data. (./script/download_data_ demo_script.py)
 
 
 ## How to access the daily data
@@ -171,11 +171,11 @@ STORED AS PARQUET
 LOCATION '{{hdfs_or_s3_path}}';
 ```
 2. Download the patch data via `download_patch_data` method and save it in `sui_token_tranfers_patch_table`.
-3. Merge the data through the design of the primary key in the table.
+3. Merge the data through the design of the unique key in the table.
 
-Here is a Trino sql example of updating historical table patch data, where the database is merged based on the table primary key information provided.
+Here is a Trino sql example of updating historical table patch data, where the database is merged based on the table unique key information provided.
 
-> Please contact Footprint to get table primary key informations
+> The unique key information for all tables can be viewed in the schema file. (./table_schema)
 
 ```SQL
 MERGE INTO sui_token_tranfers AS a
@@ -206,7 +206,7 @@ WHEN MATCHED THEN
 
 1. use `download_daily_data` to download historical data.
 2. use `download_all_patch_data` to quickly download the latest available patch data, if it returns no data, this means there is no historical patch data.
-3. Merge `all patch data` ****to `daily_data` by primary keys. (Skip if none is available)
+3. Merge `all patch data` ****to `daily_data` by unique keys. (Skip if none is available)
 
 ---
 
