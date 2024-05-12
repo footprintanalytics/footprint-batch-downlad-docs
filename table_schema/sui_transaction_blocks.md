@@ -1,4 +1,5 @@
-> All updates to the Sui ledger happen via a transaction.
+> The type of table is `bronze daily table` 
+>> All updates to the Sui ledger happen via a transaction.
 
 |column order	|column name	|data type	|description	|is_unique_key|
 |--	|----	|----	|---------	|---|

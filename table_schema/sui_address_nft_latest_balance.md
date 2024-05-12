@@ -1,4 +1,5 @@
-> This table contains information about each wallet's holdings, such as the balance of each NFT.
+> The type of table is `latest table` 
+>>This table contains information about each wallet's holdings, such as the balance of each NFT.
 
 | column order | column name                 | data type | description                                   | is_unique_key |
 | ------------ | --------------------------- | --------- | --------------------------------------------- | ------------- |

@@ -1,3 +1,5 @@
+> The type of table is `bronze daily table` 
+
 | column order | column name              | data type     | description                            | is_unique_key |
 | ------------ | ------------------------ | ------------- | -------------------------------------- | ------------- |
 | 1            | transaction_block_digest | varchar       | The digest of the queried transaction. | Y             |

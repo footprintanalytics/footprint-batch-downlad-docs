@@ -1,4 +1,5 @@
-> This table contains the basic information of the token, which can be used to identify the token using the token_address.
+> The type of table is `static table` 
+>> This table contains the basic information of the token, which can be used to identify the token using the token_address.
 
 | column order | column name    | data type      | description                                                                                                             | is_unique_key |
 | ------------ | -------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------- | ------------- |
