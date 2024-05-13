@@ -59,33 +59,22 @@ def download(chain, table, file_path='', is_download=True):
 
 
 
-# version: int
-# e.g version = 1
-def download_patch_data(chain, table, version, date_path=None):
-    if date_path:
-        download(chain, table, f"patch_data/version={version}/block_date={date_path}")
-    else:
-        download(chain, table, f"patch_data/version={version}")
-
 # date: datetime: yyyy-mm-dd
 # e.g: date = 2024-01-01
 def download_daily_data(chain, table, date):
     download(chain, table, f"block_date={date}")
 
-def download_summary_patch_data(chain, table):
-    download(chain, table, "patch_data/total_summary")
-
 def download_static_data(chain, table):
     download(chain, table)
 
-def download_all_patch_data(chain, table):
-    object_list = download(chain, table, 'patch_data/version', False)
-    max_version = max([int(obj['key'].split("version=")[1].split("/")[0]) for obj in object_list])
-    total_summary_max_version  = max_version // 5 * 5
-    download_summary_patch_data(chain, table)
-    for version in range(total_summary_max_version + 1, max_version + 1):
-        download_patch_data(chain, table, version)
-    print(f"The latest patch data has been downloaded, the current patch data version number is {max_version}")
+def download_static_patch_data(chain, table):
+    download_static_data(chain, table)
+
+def download_daily_patch_data(chain, table, date):
+    download_daily_data(chain, table, date)
+
+def download_daily_latest_full_data(chain, table):
+    download(chain, table, "/latest")
 
 def get_all_filename_by_table_name(chain, table):
     object_list = download(chain, table, '', False)
@@ -99,4 +88,4 @@ def main(chain, table):
 
 
 if __name__ == '__main__':
-    download_all_patch_data('sui', 'sui_nft_transactions')
+    download_daily_patch_data('sui', 'sui_nft_transactions')
