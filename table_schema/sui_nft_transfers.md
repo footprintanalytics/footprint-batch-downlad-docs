@@ -1,4 +1,4 @@
-> The type of table is `silver/gold daily table` 
+> The type of table is `daily table` 
 >> This table contains the NFT token transfers event information of ERC1155, ERC721 included in the nft_contract_info table and some ERC20 NFTs. Mainly includes the flow direction of the token, and covers mint, burn and transfer transactions.
 
 | column order | column name                 | data type | description                                                            | is_unique_key |

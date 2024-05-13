@@ -1,4 +1,4 @@
-> The type of table is `bronze daily table` 
+> The type of table is `daily table` 
 
 | column order | column name              | data type | description                                                                  | is_unique_key |
 | ------------ | ------------------------ | --------- | ---------------------------------------------------------------------------- | ------------- |

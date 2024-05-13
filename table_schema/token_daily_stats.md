@@ -1,4 +1,4 @@
-> The type of table is `silver/gold daily table` 
+> The type of table is `daily table` 
 >> This table can be used to analyze the daily indicators (include price,trade volume in 24 hour,current market capitalization,etc ) of the token.
 
 | column order | column name             | data type | description                                         | is_unique_key |

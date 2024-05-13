@@ -1,4 +1,4 @@
-> The type of table is `silver/gold daily table` 
+> The type of table is `daily table` 
 >> This table contains the information of the NFT sales transactions traded only on marketplaces.
 
 | column order | column name                      | data type | description                                                              | is_unique_key |
