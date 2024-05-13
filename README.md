@@ -25,7 +25,7 @@ def download_static_data(chain, table):
     download(chain, table)
 
 if __name__ == '__main__':
-	download_static_data('sui', 'nft_collection_info')
+    download_static_data('sui', 'nft_collection_info')
 ```
 
 ## How to access the daily table
@@ -74,12 +74,12 @@ def download_static_patch_data(chain, table):
     download_static_data(chain, table)
 
 if __name__ == '__main__':
-	download_static_patch_data('sui', 'nft_collection_info')
+    download_static_patch_data('sui', 'nft_collection_info')
 ```
 
-### Partial OverWrite 
+### Partial Overwrite 
 
-#### Partial OverWrite Ordinary
+#### Partial Overwrite Ordinary
 
 The tables involved as follows:
 - `sui_balance_change_history`
@@ -106,16 +106,16 @@ def download_daily_patch_data(chain, table, date):
     download(chain, table, f'block_date={date}')
 
 if __name__ == '__main__':
-	download_daily_patch_data('sui', 'sui_token_transactions', '2024-01-01')
+    download_daily_patch_data('sui', 'sui_token_transactions', '2024-01-01')
 ```
 
-#### Partial OverWrite By Latest Full Daily Data
+#### Partial Overwrite By Latest Daily Full Data
 
 The tables involved as follows:
 - `sui_nft_transactions`
 - `sui_nft_transfers`
 
-Take the table **`sui_nft_transactions`** as an example, this type of table has a situation where adding a new FT leads to an increase in data, and if you use an override partitioning method like bronze table, it may involve a lot of partitioning updates, which is extremely costly to update.
+Take the table **`sui_nft_transactions`** as an example, this type of table has a situation where adding a new NFT leads to an increase in data, and if you use an override partitioning method like bronze table, it may involve a lot of partitioning updates, which is extremely costly to update.
 
 We will generate new folder named `latest` that stored the latest data of original data and patch data, but only from the past 7 days at most. If there are other serious issues over the past 7 days, we will manually upload the data.
 You can use `download_daily_latest_full_data` method to get the data, directly overwrite it.
@@ -132,7 +132,7 @@ def download_daily_latest_full_data(chain, table):
     download(chain, table, f'/latest')
 
 if __name__ == '__main__':
-	download_daily_latest_full_data('sui', 'sui_nft_transactions')
+    download_daily_latest_full_data('sui', 'sui_nft_transactions')
 ```
 
 ## How to access full historical data
