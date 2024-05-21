@@ -62,7 +62,7 @@ def download(chain, table, file_path='', is_download=True):
 # date: datetime: yyyy-mm-dd
 # e.g: date = 2024-01-01
 def download_daily_data(chain, table, date):
-    download(chain, table, f"block_date={date}")
+    download(chain, table, f"date={date}")
 
 def download_static_data(chain, table):
     download(chain, table)

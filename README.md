@@ -35,16 +35,16 @@ Take the table **`sui_nft_transactions`** as an example, If you want to get the 
 ```python
 # The path to the file where Footprint is stored on R2 is as follows
 | sui_nft_transactions
-| --block_date=2024-01-01
+| --date=2024-01-01
 | ----file.parquet
-| --block_date=2024-01-02
+| --date=2024-01-02
 | ----file.parquet
 .
 .
 .
 
 def download_daily_data(chain, table, date):
-    download(chain, table, f'block_date={date}')
+    download(chain, table, f'date={date}')
 
 if __name__ == '__main__':
     download_daily_data('sui', 'sui_nft_transactions', '2024-01-01')
@@ -94,16 +94,16 @@ You can use `download_daily_patch_data` method to get the data, directly overwri
 ```python
 # The path to the file where Footprint is stored on R2 is as follows
 | sui_token_transactions
-| --block_date=2024-01-01
+| --date=2024-01-01
 | ----file.parquet
-| --block_date=2024-01-02
+| --date=2024-01-02
 | ----file.parquet
 .
 .
 .
 
 def download_daily_patch_data(chain, table, date):
-    download(chain, table, f'block_date={date}')
+    download(chain, table, f'date={date}')
 
 if __name__ == '__main__':
     download_daily_patch_data('sui', 'sui_token_transactions', '2024-01-01')
@@ -123,9 +123,9 @@ You can use `download_daily_latest_full_data` method to get the data, directly o
 # The path to the file where Footprint is stored on R2 is as follows
 | sui_nft_transactions
 | --latest
-| ----block_date=2024-01-01
+| ----date=2024-01-01
 | ------file.parquet
-| ----block_date=2024-01-03
+| ----date=2024-01-03
 | ------file.parquet
 
 def download_daily_latest_full_data(chain, table):
@@ -157,14 +157,15 @@ Metadata of notification:
 Incident: Data production completed
 Impact: sui token_transfers 2024-05-09
 Type: Delay
-Path: sui/token_transfers/block_date=2024-05-09
+Path: sui/token_transfers/date=2024-05-09
 Completed Time: 2024-05-10 11:30 (KST, UTC+9)
 ```
 
 There are the following types of notification:
-- `ordinary` it means the daily data file has been produced successfully.
-- `delay` it means that the daily data was produced longer than agreed upon.
-- `delta` it means the delta data file has been produced successfully.
+- `Ordinary` it means the daily data file has been produced successfully.
+- `In Progress` it means the daily data file has been in progress but not have been produced successfully.
+- `Delay` it means that the daily data was produced longer than agreed upon.
+- `Delta` it means the delta data file has been produced successfully.
 
 
 
